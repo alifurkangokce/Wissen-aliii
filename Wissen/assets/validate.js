@@ -1,6 +1,6 @@
 /* <![CDATA[ */
 // Jquery validate form contact
-jQuery(document).ready(function(){
+/*jQuery(document).ready(function(){
 
 	$('#contactform').submit(function(){
 
@@ -79,7 +79,7 @@ jQuery(document).ready(function(){
 	});
 
 });
-
+*/
 			  
 
 /// Jquery validate newsletter
