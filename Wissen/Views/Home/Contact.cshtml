@@ -34,7 +34,7 @@
                 <a href="all-courses.html" title="All courses"><img src="img/banner.jpg" alt="Banner" class="img-rounded img-responsive"></a>
             </p>
         </aside>
-
+        
         <!-- =========================Start Col right section ============================= -->
         <section class="col-md-8 col-sm-8">
             <div class="col-right">
@@ -45,12 +45,13 @@
                 <h4>General Enquire or Apply</h4>
 
                 <div id="message-contact"></div>
-                <form method="post" action="@Url.Action("Contact")" id="contactform" onsubmit="return validateForm(this)">
+                <form method="post" action="@Url.Action("Contact")" id="contactform">
+                    <!--onsubmit="return validateForm(this)-->
                     @if (ViewBag.Message != null)
                     {
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="alert-success">@ViewBag.Message</div>
+                                <div class="alert @(ViewBag.IsError==null||ViewBag.IsError==false?"alert-success":"alert-danger")">@ViewBag.Message</div>
                             </div>
                         </div>
                     }

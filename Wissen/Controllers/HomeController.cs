@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,6 +20,20 @@ namespace Wissen.Controllers
 
             return View();
         }
+        public ActionResult DenemeForm()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DenemeForm(Wissen.Models.DenemeForm model1)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Message = "Mail başarıyla gönderildi";
+                return View();
+            }
+            return View();
+        }
 
         public ActionResult Contact()
         {
@@ -29,6 +44,44 @@ namespace Wissen.Controllers
         [HttpPost]
         public ActionResult Contact(string Name,string LastName,string Email,string Phone,string Message,string department)
         {
+            Name = Name.Trim();
+            LastName = LastName.Trim();
+            
+            if (Name == "")
+            {
+                ViewBag.Message = "Ad alanı gereklidir";
+                ViewBag.IsError = true;
+                return View();
+            }
+            if (Name.Length>50)
+            {
+                ViewBag.Message = "Ad alanı 50 karakteri geçemez";
+                ViewBag.IsError = true;
+                return View();
+            }
+            if (LastName == "")
+            {
+                ViewBag.Message = "SoyAd alanı gereklidir";
+                ViewBag.IsError = true;
+                return View();
+            }
+            if (LastName.Length > 50)
+            {
+                ViewBag.Message = "SoyAd alanı 50 karakteri geçemez";
+                ViewBag.IsError = true;
+                return View();
+            }
+            Regex regex = new Regex(@"^ 5(0[5 - 7] |[3 - 5]\d) \d{ 3 } \d{ 4}$");
+            Match match = regex.Match(Phone);
+            if (match.Success==false)
+            {
+                ViewBag.Message = "Telefon 5XX XXX XXXX biçiminde olmalıdır";
+                ViewBag.IsError = true;
+                return View();
+            }
+
+
+
             System.Net.Mail.MailMessage mailMessage = new System.Net.Mail.MailMessage();
             mailMessage.From = new System.Net.Mail.MailAddress("alifurkangokce@gmail.com","ali");
             mailMessage.Subject = "İletişim Formu: " + Name + "" + LastName;
