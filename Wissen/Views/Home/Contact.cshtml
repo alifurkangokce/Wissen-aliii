@@ -45,7 +45,7 @@
                 <h4>General Enquire or Apply</h4>
 
                 <div id="message-contact"></div>
-                <form method="post" action="@Url.Action("Contact")" id="contactform">
+                <form method="post" action="@Url.Action("Contact")" id="contactform" onsubmit="return validateForm(this)">
                     @if (ViewBag.Message != null)
                     {
                         <div class="row">
@@ -61,20 +61,24 @@
 
                             <label>Name <span class="required">* </span></label>
                             <input type="text" class="form-control ie7-margin" id="name_contact" name="Name">
+                            <span id="NameMessage" class="validationMessage text-danger" style="display:none;"></span>
                         </div>
                         <div class="col-md-6">
                             <label>Last name <span class="required">* </span></label>
                             <input type="text" class="form-control ie7-margin" id="lastname_contact" name="LastName">
+                            <span id="LastNameMessage" class="validationMessage text-danger" style="display:none;"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label>Email <span class="required">* </span></label>
                             <input type="email" id="email_contact" class="form-control ie7-margin" name="Email">
+                            <span id="EmailMessage" class="validationMessage text-danger" style="display:none;"></span>
                         </div>
                         <div class="col-md-6">
                             <label>Phone <span class="required">* </span></label>
-                            <input type="text" id="phone_contact" class="form-control ie7-margin" name="Phone">
+                            <input type="tel" id="phone_contact" class="form-control ie7-margin" name="Phone">
+                            <span id="PhoneMessage" class="validationMessage text-danger" style="display:none;"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -106,7 +110,7 @@
                 <h4>Plan a visit</h4>
                 <div id="message-visit"></div>
                 <form method="post" action="assets/visit.php" id="visit">
-                    
+
                     <div class="row">
                         <div class="col-md-6">
                             <label>Name <span class="required">* </span></label>
@@ -148,3 +152,72 @@
         </section>
     </div><!-- end row-->
 </div><!-- end container-->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#contactform input,#contactform textarea").keyup(function () {
+                $(this).next(".validationMessage").hide();
+            });
+            $("#contactform select").change(function () {
+                $(this).next(".validationMessage").hide();
+            });
+        });
+        function validateForm(elm) {
+            var isValid = true;
+            if ($(elm).find("#name_contact").val() == "") {
+                $("#NameMessage").html("Lütfen adınızı giriniz");
+                $("#NameMessage").show();
+                $(elm).find("#name_contact").focus();
+                isValid=false;
+            }
+            if ($(elm).find("#name_contact").val().length > 50) {     
+                $(elm).find("#name_contact").focus();
+                isValid=false;
+            }
+
+            if ($(elm).find("#lastname_contact").val() == "") {
+                $("#LastNameMessage").html("Lütfen soyadınızı giriniz");
+                $("#LastNameMessage").show();
+                $(elm).find("#lastname_contact").focus();
+                isValid=false;
+            }
+            if ($(elm).find("#lastname_contact").val().length > 50) {        
+                $(elm).find("#lastname_contact").focus();
+                isValid = false;
+            }
+
+            if ($(elm).find("#email_contact").val() == "") {
+                $("#EmailMessage").html("Lütfen mailinizi giriniz");
+                $("#EmailMessage").show();
+                $(elm).find("#email_contact").focus();
+                isValid = false;
+            }
+            if ($(elm).find("#email_contact").val().length > 50) {
+                alert("Email alanı 50 karakterden büyük olamaz");
+                $(elm).find("#email_contact").focus();
+                isValid = false;
+            }
+
+            if ($(elm).find("#phone_contact").val() == "") {
+                $("#PhoneMessage").html("Lütfen telefonunuzu giriniz");
+                $("#PhoneMessage").show();
+                $(elm).find("#phone_contact").focus();
+                isValid = false;
+            }
+            if ($(elm).find("#phone_contact").val().length > 50) {
+                
+                $(elm).find("#phone_contact").focus();
+                isValid = false;
+            }
+            var pattern = /^5(0[5-7]|[3-5]\d) \d{3} \d{4}$/g
+            if (pattern.test($(elm).find("#phone_contact").val()) == false) {
+                
+                $(elm).find("#phone_contact").focus();
+                isValid = false;
+
+            }
+
+            return isValid;
+        }
+    </script>
+}

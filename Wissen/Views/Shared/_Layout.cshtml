@@ -381,7 +381,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    
     <footer>
         <div class="container">
             <div class="row">
@@ -452,6 +452,6 @@
     <script src="/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
     <script type="/text/javascript" src="/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
     <script src="/js/revolutio-slider-func.js"></script>
-
+    @RenderSection("scripts",required:false)
 </body>
 </html>
