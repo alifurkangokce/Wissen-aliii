@@ -42,7 +42,7 @@ namespace Wissen.Controllers
                 mailMessage.Body = body;
 
                 System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new System.Net.NetworkCredential("mailgir", "şifregir");
+                smtp.Credentials = new System.Net.NetworkCredential("mailgiriniz", "şifregiriniz");
                 smtp.EnableSsl = true;
                 smtp.Send(mailMessage);
                 ViewBag.Message = "Mesajınız gönderildi. Teşekkür ederiz.";
