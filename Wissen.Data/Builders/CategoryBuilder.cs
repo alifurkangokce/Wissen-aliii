@@ -12,6 +12,7 @@ namespace Wissen.Data.Builders
     {
         public CategoryBuilder(EntityTypeConfiguration<Category> entity)
         {
+           // entity.HasKey(e => e.Id);
             entity.Property(d => d.Name).IsRequired().HasMaxLength(200);
             entity.Property(d => d.Description).HasMaxLength(2000);
         }
