@@ -26,6 +26,7 @@ namespace Wissen.Admin.Controllers
             return View(category);
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(Category category)
         {
             if (ModelState.IsValid)
@@ -47,6 +48,8 @@ namespace Wissen.Admin.Controllers
 
         }
         [HttpPost]
+        [ValidateInput(false)]
+        
         public ActionResult Edit(Category category)
         {
             if (ModelState.IsValid)
@@ -65,5 +68,6 @@ namespace Wissen.Admin.Controllers
             categoryService.Delete(id);
             return RedirectToAction("Index");
         }
+
     }
 }

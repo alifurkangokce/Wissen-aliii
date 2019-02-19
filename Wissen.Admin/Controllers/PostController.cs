@@ -30,6 +30,7 @@ namespace Wissen.Admin.Controllers
             return View(post);
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(Post post)
         {
             if (ModelState.IsValid)
@@ -43,16 +44,18 @@ namespace Wissen.Admin.Controllers
         }
         public ActionResult Edit(int id)
         {
-            ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Name");
+            
             var post = postService.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Name",post.CategoryId);
             return View(post);
 
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(Post post)
         {
             if (ModelState.IsValid)
@@ -72,6 +75,17 @@ namespace Wissen.Admin.Controllers
         {
             postService.Delete(id);
             return RedirectToAction("Index");
+        }
+        public ActionResult Details(int id)
+        {
+            var post = postService.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(post);
+
         }
     }
 }

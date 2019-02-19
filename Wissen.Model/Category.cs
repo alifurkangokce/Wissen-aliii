@@ -13,7 +13,7 @@ namespace Wissen.Model
         {
             Posts = new HashSet<Post>();
         }
-        [Display(Name="Ad")]
+        [Display(Name="Kategori Adı")]
         [Required]
         public string Name { get; set; }
         [Display(Name = "Açıklama")]
